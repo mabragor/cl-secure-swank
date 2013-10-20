@@ -19,8 +19,6 @@
           (if it
               (collect `(,it ,args ,handler))))))
               
-  
-
 (in-package :swank)
 
 (defvar *packet-critical-length* nil
@@ -30,9 +28,9 @@
 (defvar *macrochar-blacklist* '(:t))
 
 (defmacro with-macrochar-secured-reader (&body body)
-  `(let ((*reader* (secure-read-from-string-lambda swank-reader-from-string
-                                                   :blacklist *macrochar-blacklist*
-                                                   :whitelist *macrochar-whitelist*)))
+  `(let ((*reader* (cl-secure-read::secure-read-from-string-lambda swank-reader-from-string
+                                                                   :blacklist *macrochar-blacklist*
+                                                                   :whitelist *macrochar-whitelist*)))
      ,@body))
 
 (defmacro with-swank-rpcs-disabled (lst &body body)
